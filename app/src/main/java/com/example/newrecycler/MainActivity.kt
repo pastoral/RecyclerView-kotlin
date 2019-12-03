@@ -1,7 +1,9 @@
 package com.example.newrecycler
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +22,7 @@ class MainActivity : AppCompatActivity(), OnCarItemClickListner{
 
         carRecycler.layoutManager = LinearLayoutManager(this)
         carRecycler.addItemDecoration(DividerItemDecoration(this,1))
-        carRecycler.adapter = CarAdapter(carlist)
+        carRecycler.adapter = CarAdapter(carlist,this)
     }
 
     fun addCars(){
@@ -34,6 +36,13 @@ class MainActivity : AppCompatActivity(), OnCarItemClickListner{
     }
 
     override fun onItemClick(item: Cars, position: Int) {
+//        Toast.makeText(this, item.name , Toast.LENGTH_SHORT).show()
+         val intent = Intent(this, CarDetailsActivity::class.java)
+         intent.putExtra("CARNAME", item.name)
+        intent.putExtra("CARDESC", item.description)
+        intent.putExtra("CARLOGO", item.logo.toString())
+        startActivity(intent)
+
 
     }
 }
